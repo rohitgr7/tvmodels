@@ -1,0 +1,17 @@
+### TODO
+- [x] SEResNet50
+- [x] SEResNet101
+- [x] SEResNet152
+- [x] SEResNeXt50_32_4
+- [x] SEResNeXt101_32_4
+- [x] SENet154
+- [x] ResNext50_32_4
+- [x] ResNext101_32_4
+- [x] ResNext101_32_8
+- [x] ResNext101_64_4
+- [ ] ResNext152
+- [x] ResNet18
+- [x] ResNet34
+- [x] ResNet50
+- [x] ResNet101
+- [x] ResNet152
