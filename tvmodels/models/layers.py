@@ -1,7 +1,7 @@
 from torch import nn
 from torch.nn.utils import spectral_norm
 
-__all__ = ['Bottleneck', 'SEBlock', 'Flatten', 'conv2d', 'relu']
+__all__ = ['Bottleneck', 'Flatten', 'conv2d', 'relu']
 
 
 class Bottleneck(nn.Module):
@@ -16,21 +16,6 @@ class Bottleneck(nn.Module):
         else:
             out += x
         return self.relu(out)
-
-
-class SEBlock(nn.Module):
-
-    def __init__(self, nc, ratio=16):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.AdaptiveAvgPool2d(1),
-            conv2d(nc, nc // ratio, 1), relu(),
-            conv2d(nc // ratio, nc, 1),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        return x * self.net(x)
 
 
 class Flatten(nn.Module):

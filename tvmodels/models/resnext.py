@@ -1,4 +1,4 @@
-from .resnet import ResNetBasicBlock, ResNetBlock, ResNet
+from .blocks import ResNetBlock, ResNet
 from ..utils import load_pretrained
 
 __all__ = ['resnext50_32x4', 'resnext101_32x4',

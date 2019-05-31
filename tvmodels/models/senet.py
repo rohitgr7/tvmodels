@@ -1,10 +1,8 @@
-from torch import nn
-from .layers import Bottleneck, SEBlock, conv2d, relu
-from .resnet import ResNetBlock, ResNet
+from .blocks import ResNetBlock, ResNet, SEResNetBlock, SENetBlock
 from ..utils import load_pretrained
 
-__all__ = ['SENetBlock', 'SEResNetBlock', 'se_resnet50', 'se_resnet101',
-           'se_resnet152', 'se_resnext50_32x4', 'se_resnext101_32x4', 'senet154']
+__all__ = ['se_resnet50', 'se_resnet101', 'se_resnet152',
+           'se_resnext50_32x4', 'se_resnext101_32x4', 'senet154']
 
 META = {
     'se_resnet50': ['se_resnet50.pth', 'https://drive.google.com/open?id=1juma-phILOUZfjf8jGwqIKAjuEdev-kQ'],
@@ -14,35 +12,6 @@ META = {
     'se_resnext101_32x4': ['se_resnext101_32x4.pth', 'https://drive.google.com/open?id=1lcUJD3VqSFgVJCPFUnQOl9MBYWuABWkR'],
     'senet154': ['senet154.pth', 'https://drive.google.com/open?id=1c3kD_plELHJAvBXO5yO8ZJin-s7dYIoD']
 }
-
-
-class SENetBlock(Bottleneck):
-    expansion = 4
-
-    def __init__(self, ni, nf, stride, downsample=None, groups=64, ratio=16, **kwargs):
-        super().__init__()
-        layers = [conv2d(ni, nf * 2, 1, bn=True), relu(),
-                  conv2d(nf * 2, nf * 4, 3, stride,
-                         1, groups, bn=True), relu(),
-                  conv2d(nf * 4, nf * 4, 1, bn=True),
-                  SEBlock(nf * 4, ratio)]
-        self.net = nn.Sequential(*layers)
-        self.relu = relu()
-        self.downsample = downsample
-
-
-class SEResNetBlock(Bottleneck):
-    expansion = 4
-
-    def __init__(self, ni, nf, stride, downsample=None, groups=1, ratio=16, **kwargs):
-        super().__init__()
-        layers = [conv2d(ni, nf, 1, stride, bn=True), relu(),
-                  conv2d(nf, nf, 3, 1, 1, groups, bn=True), relu(),
-                  conv2d(nf, nf * self.expansion, 1, bn=True),
-                  SEBlock(nf * 4, ratio)]
-        self.net = nn.Sequential(*layers)
-        self.relu = relu()
-        self.downsample = downsample
 
 
 def se_resnet50(nc=1000, pretrained=False, dest=None):
