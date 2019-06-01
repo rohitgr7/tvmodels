@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setup(
     name='tvmodels',
-    version='0.0.2',
+    version='0.0.3',
     description='Implementation of vision models with their pretrained weights',
     py_modules=['tvmodels'],
     package_dir={'': 'tvmodels'},
@@ -17,6 +17,11 @@ setup(
 
     long_description=readme,
     long_description_content_type='text/markdown',
+
+    install_requires=[
+        'torch>=1.0.1',
+        'numpy',
+        'requests'],
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
