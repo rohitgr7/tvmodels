@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setup(
     name='tvmodels',
-    version='0.0.1',
+    version='0.0.2',
     description='Implementation of vision models with their pretrained weights',
     py_modules=['tvmodels'],
     package_dir={'': 'tvmodels'},
