@@ -11,6 +11,10 @@ setup(
     py_modules=['tvmodels'],
     package_dir={'': 'tvmodels'},
 
+    url='https://github.com/rohitgr7/tvmodels',
+    author='Rohit Gupta',
+    author_email='rohitgr1998@gmail.com',
+
     long_description=readme,
     long_description_content_type='text/markdown',
 

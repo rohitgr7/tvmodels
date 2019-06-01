@@ -27,7 +27,7 @@ res_model = resnet18(pretrained=True)
 - [x] ResNext101_32_4
 - [x] ResNext101_32_8
 - [x] ResNext101_64_4
-- [] ResNext152
+- [ ] ResNext152
 - [x] ResNet18
 - [x] ResNet34
 - [x] ResNet50
