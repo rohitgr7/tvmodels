@@ -2,3 +2,5 @@
 **/.ipynb_checkpoints/
 mymodels/
 *.ipynb
+env/
+*.mp4
