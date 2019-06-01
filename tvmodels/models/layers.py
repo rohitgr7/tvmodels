@@ -7,10 +7,7 @@ __all__ = ['Bottleneck', 'Flatten', 'conv2d', 'relu']
 class Bottleneck(nn.Module):
 
     def forward(self, x):
-        print(x.shape)
         out = self.net(x)
-        print(self.net)
-        print(out.shape)
         if self.downsample is not None:
             out += self.downsample(x)
         else:
