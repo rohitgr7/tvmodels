@@ -7,6 +7,14 @@ Run the following to install:
 pip install tvmodels
 ```
 
+### Colab
+If it shows `ModuleNotFoundError` on Google-colab use the following:
+```python
+!git clone https://github.com/rohitgr7/tvmodels.git
+import sys
+sys.path.append('/content/tvmodels')
+```
+
 ## Usage
 ```python
 from tvmodels.models import se_resnet50, resnet18

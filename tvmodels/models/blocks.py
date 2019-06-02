@@ -1,7 +1,19 @@
 from torch import nn
-from .layers import Bottleneck, Flatten, conv2d, relu
+from .layers import Flatten, conv2d, relu
 
-__all__ = ['ResNetBasicBlock', 'ResNetBlock', 'ResNet', 'SEBlock', 'SENetBlock', 'SEResNetBlock']
+__all__ = ['Bottleneck', 'ResNetBasicBlock', 'ResNetBlock',
+           'ResNet', 'SEBlock', 'SENetBlock', 'SEResNetBlock']
+
+
+class Bottleneck(nn.Module):
+
+    def forward(self, x):
+        out = self.net(x)
+        if self.downsample is not None:
+            out += self.downsample(x)
+        else:
+            out += x
+        return self.relu(out)
 
 
 class ResNetBasicBlock(Bottleneck):
@@ -48,14 +60,12 @@ class ResNet(nn.Module):
             layers += [conv2d(3, ni, 7, 2, 3, bn=True), relu()]
 
         layers += [nn.MaxPool2d(3, 2, padding=int(not se), ceil_mode=se),
-                   self._res_blocks(block, 64, base_blocks[0], **kwargs),
-                   self._res_blocks(block, 128, base_blocks[
-                       1], down_ksz, down_pad, 2, **kwargs),
-                   self._res_blocks(block, 256, base_blocks[
-                       2], down_ksz, down_pad, 2, **kwargs),
-                   self._res_blocks(block, 512, base_blocks[
-                       3], down_ksz, down_pad, 2, **kwargs),
-                   nn.AdaptiveAvgPool2d((1, 1)), nn.Dropout(ps),
+                   self._res_blocks(block, 64, base_blocks[0], **kwargs)]
+
+        layers += [self._res_blocks(block, 128 * (2**i), base_blocks[i + 1], down_ksz, down_pad, 2, **kwargs)
+                   for i in range(3)]
+
+        layers += [nn.AdaptiveAvgPool2d((1, 1)), nn.Dropout(ps),
                    Flatten(), nn.Linear(512 * block.expansion, nc)]
         self.net = nn.Sequential(*layers)
 
@@ -67,8 +77,8 @@ class ResNet(nn.Module):
 
         layers = [block(self.ni, nf, stride, downsample, se=self.se, **kwargs)]
         self.ni = nf * block.expansion
-        for i in range(1, nblocks):
-            layers.append(block(self.ni, nf, 1, se=self.se, **kwargs))
+        layers += [block(self.ni, nf, 1, se=self.se, **kwargs)
+                   for _ in range(1, nblocks)]
         return nn.Sequential(*layers)
 
     def forward(self, x):

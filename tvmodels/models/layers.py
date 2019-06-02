@@ -1,18 +1,7 @@
 from torch import nn
 from torch.nn.utils import spectral_norm
 
-__all__ = ['Bottleneck', 'Flatten', 'conv2d', 'relu']
-
-
-class Bottleneck(nn.Module):
-
-    def forward(self, x):
-        out = self.net(x)
-        if self.downsample is not None:
-            out += self.downsample(x)
-        else:
-            out += x
-        return self.relu(out)
+__all__ = ['Flatten', 'conv2d', 'relu']
 
 
 class Flatten(nn.Module):

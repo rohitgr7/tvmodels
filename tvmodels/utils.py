@@ -34,6 +34,7 @@ def _download_file_from_google_drive(fid, dest):
 def _load_url(url, dest):
     if os.path.isfile(dest) and os.path.exists(dest):
         return dest
+    print('[INFO]: Downloading weights...')
     fid = urlparse.parse_qs(urlparse.urlparse(url).query)['id'][0]
     _download_file_from_google_drive(fid, dest)
     return dest
@@ -42,7 +43,7 @@ def _load_url(url, dest):
 def load_pretrained(m, meta, dest, pretrained=False):
     if pretrained:
         if len(meta) == 0:
-            print('Pretrained model not available')
+            print('[INFO]: Pretrained model not available')
             return m
         if dest is None:
             dest = meta[0]

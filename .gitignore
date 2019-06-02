@@ -1,9 +1,10 @@
 **/__pycache__/
 **/.ipynb_checkpoints/
 mymodels/
-*.ipynb
+**.ipynb
 env/
-*.mp4
+**.mp4
+**.pth
 
 
 # Distribution / packaging
