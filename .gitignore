@@ -4,8 +4,11 @@ mymodels/
 **.ipynb
 env/
 **.mp4
+**.mkv
+**.web4
 **.pth
-
+todo.md
+tests/
 
 # Distribution / packaging
 .Python

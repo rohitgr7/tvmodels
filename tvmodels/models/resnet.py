@@ -4,11 +4,11 @@ from ..utils import load_pretrained
 __all__ = ['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152']
 
 META = {
-    'resnet18': ['resnet18.pth', 'https://drive.google.com/open?id=1AujRUDxC93cUlTCNjMPJy2C6X5KH7RX7'],
-    'resnet34': ['resnet34.pth', 'https://drive.google.com/open?id=1Vkft9-pD5RQfv7hHwIurL333dYzIYbzs'],
-    'resnet50': ['resnet50.pth', 'https://drive.google.com/open?id=1-u5nQd7Ev7siOnvhNavHT2sP2f85z6q9'],
-    'resnet101': ['resnet101.pth', 'https://drive.google.com/open?id=1hQeOxbVwr1-hkqTWBd9EOUDjSf8W7hnu'],
-    'resnet152': ['resnet152.pth', 'https://drive.google.com/open?id=1qReWCS9KsHk5UToAZIC9jrbJm0khwNnO']
+    'resnet18': ['resnet18.pth', 'https://drive.google.com/open?id=1d-AgSMO7HcKihDEXHqzDX2dAxYtH7N2m'],
+    'resnet34': ['resnet34.pth', 'https://drive.google.com/open?id=1HiUX27F3Luu27K3rfLc9dUXzwmwcBVpZ'],
+    'resnet50': ['resnet50.pth', 'https://drive.google.com/open?id=10aA1Qex-5CvzZMCmHaWMMfeFToN3DHkr'],
+    'resnet101': ['resnet101.pth', 'https://drive.google.com/open?id=1rbgoMnCHNGHHXbJhYiOsgAMGYkeQ7tvP'],
+    'resnet152': ['resnet152.pth', 'https://drive.google.com/open?id=15fAZ1PJ6ESiIkRG55TwKr_vMZ5xhHtGu']
 }
 
 

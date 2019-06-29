@@ -1,5 +1,5 @@
 # tvmodels
-The tvmodels library contains implementation of pretrained vision models in pytorch trained on ImageNet. Some of these models are not available in [torchvision](https://pytorch.org/docs/stable/torchvision/index.html), so you can load them for here.
+The tvmodels library contains pretrained vision models in pytorch trained on ImageNet. Some of these models are available in [torchvision](https://pytorch.org/docs/stable/torchvision/index.html) but some are not, so you can load them for here.
 
 ## Installation
 Run the following to install:
@@ -24,20 +24,10 @@ se_res_model = se_resnet50(pretrained=True)
 res_model = resnet18(pretrained=True)
 ```
 
-## TODO
-- [x] SEResNet50
-- [x] SEResNet101
-- [x] SEResNet152
-- [x] SEResNeXt50_32_4
-- [x] SEResNeXt101_32_4
+## Available models
+- [x] ResNet(s)
+- [x] ResNext(s)
+- [x] SEResNet(s)
+- [x] SEResNeXt(s)
 - [x] SENet154
-- [x] ResNext50_32_4
-- [x] ResNext101_32_4
-- [x] ResNext101_32_8
-- [x] ResNext101_64_4
-- [ ] ResNext152
-- [x] ResNet18
-- [x] ResNet34
-- [x] ResNet50
-- [x] ResNet101
-- [x] ResNet152
+- [x] EfficientNets

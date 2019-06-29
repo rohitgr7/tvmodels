@@ -5,12 +5,10 @@ __all__ = ['resnext50_32x4', 'resnext101_32x4',
            'resnext101_32x8', 'resnext101_64x4', 'resnext152']
 
 META = {
-    'resnext18': [],
-    'resnext34': [],
-    'resnext50_32x4': ['resnext50_32x4.pth', 'https://drive.google.com/open?id=1CPd2ZoGEDmFZFXnJaeCce1im8sVYAXSL'],
-    'resnext101_32x4': ['resnext101_32x4.pth', 'https://drive.google.com/open?id=1iGySCd5mUt-ia3zUORyeGcCysfBB66wF'],
-    'resnext101_32x8': ['resnext101_32x8.pth', 'https://drive.google.com/open?id=1Nd1dJhciTHRMVCrlKTcrzkG6oea5_qF3'],
-    'resnext101_64x4': ['resnext101_64x4.pth', 'https://drive.google.com/open?id=1TjPAog6GGWZseAeHa4RrUYVJbh4LEEru'],
+    'resnext50_32x4': ['resnext50_32x4.pth', 'https://drive.google.com/open?id=1NOni3ClRTaO2cUB-wRSm69qZye66CvPd'],
+    'resnext101_32x4': ['resnext101_32x4.pth', 'https://drive.google.com/open?id=1flTAweS7XpnmduRe714266PPP_W-WyUM'],
+    'resnext101_32x8': ['resnext101_32x8.pth', 'https://drive.google.com/open?id=1RhPki5kNIGUsBL8YY7uBo5KGCQwgkD02'],
+    'resnext101_64x4': ['resnext101_64x4.pth', 'https://drive.google.com/open?id=1B3OsbSaQlD5I3IhexHNbTfZ8n6EibSkZ'],
     'resnext152': []
 }
 
