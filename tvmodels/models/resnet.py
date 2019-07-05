@@ -12,26 +12,26 @@ META = {
 }
 
 
-def resnet18(nc=1000, pretrained=False, dest=None):
+def resnet18(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBasicBlock, [2, 2, 2, 2], nc=nc)
     return load_pretrained(m, META['resnet18'], dest, pretrained)
 
 
-def resnet34(nc=1000, pretrained=False, dest=None):
+def resnet34(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBasicBlock, [3, 4, 6, 3], nc=nc)
     return load_pretrained(m, META['resnet34'], dest, pretrained)
 
 
-def resnet50(nc=1000, pretrained=False, dest=None):
+def resnet50(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 6, 3], nc=nc)
     return load_pretrained(m, META['resnet50'], dest, pretrained)
 
 
-def resnet101(nc=1000, pretrained=False, dest=None):
+def resnet101(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc)
     return load_pretrained(m, META['resnet101'], dest, pretrained)
 
 
-def resnet152(nc=1000, pretrained=False, dest=None):
+def resnet152(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 8, 36, 3], nc=nc)
     return load_pretrained(m, META['resnet152'], dest, pretrained)

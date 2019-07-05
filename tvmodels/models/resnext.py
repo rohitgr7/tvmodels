@@ -16,41 +16,41 @@ META = {
 }
 
 
-def resnext50_32x4(nc=1000, pretrained=False, dest=None):
+def resnext50_32x4(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 6, 3], nc=nc, groups=32, base_width=4)
     return load_pretrained(m, META['resnext50_32x4'], dest, pretrained)
 
 
-def resnext101_32x4(nc=1000, pretrained=False, dest=None):
+def resnext101_32x4(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc, groups=32, base_width=4)
     return load_pretrained(m, META['resnext101_32x4'], dest, pretrained)
 
 
-def resnext101_32x8(nc=1000, pretrained=False, dest=None):
+def resnext101_32x8(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc, groups=32, base_width=8)
     return load_pretrained(m, META['resnext101_32x8'], dest, pretrained)
 
 
-def resnext101_32x16(nc=1000, pretrained=False, dest=None):
+def resnext101_32x16(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc, groups=32, base_width=16)
     return load_pretrained(m, META['resnext101_32x16'], dest, pretrained)
 
 
-def resnext101_32x32(nc=1000, pretrained=False, dest=None):
+def resnext101_32x32(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc, groups=32, base_width=32)
     return load_pretrained(m, META['resnext101_32x32'], dest, pretrained)
 
 
-def resnext101_32x48(nc=1000, pretrained=False, dest=None):
+def resnext101_32x48(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc, groups=32, base_width=48)
     return load_pretrained(m, META['resnext101_32x48'], dest, pretrained)
 
 
-def resnext101_64x4(nc=1000, pretrained=False, dest=None):
+def resnext101_64x4(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc, groups=64, base_width=4)
     return load_pretrained(m, META['resnext101_64x4'], dest, pretrained)
 
 
-def resnext152(nc=1000, pretrained=False, dest=None):
+def resnext152(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 8, 36, 3], nc=nc, groups=32, base_width=4)
     return load_pretrained(m, META['resnext152'], dest, pretrained)

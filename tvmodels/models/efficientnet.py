@@ -16,41 +16,41 @@ META = {
 }
 
 
-def efficientnet_b0(nc=1000, pretrained=False, dest=None):
+def efficientnet_b0(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1., depth_c=1., ps_head=0.2, nc=nc)
     return load_pretrained(m, META['efficientnet_b0'], dest, pretrained)
 
 
-def efficientnet_b1(nc=1000, pretrained=False, dest=None):
+def efficientnet_b1(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1., depth_c=1.1, ps_head=0.2, nc=nc)
     return load_pretrained(m, META['efficientnet_b1'], dest, pretrained)
 
 
-def efficientnet_b2(nc=1000, pretrained=False, dest=None):
+def efficientnet_b2(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1.1, depth_c=1.2, ps_head=0.3, nc=nc)
     return load_pretrained(m, META['efficientnet_b2'], dest, pretrained)
 
 
-def efficientnet_b3(nc=1000, pretrained=False, dest=None):
+def efficientnet_b3(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1.2, depth_c=1.4, ps_head=0.3, nc=nc)
     return load_pretrained(m, META['efficientnet_b3'], dest, pretrained)
 
 
-def efficientnet_b4(nc=1000, pretrained=False, dest=None):
+def efficientnet_b4(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1.4, depth_c=1.8, ps_head=0.4, nc=nc)
     return load_pretrained(m, META['efficientnet_b4'], dest, pretrained)
 
 
-def efficientnet_b5(nc=1000, pretrained=False, dest=None):
+def efficientnet_b5(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1.6, depth_c=2.2, ps_head=0.4, nc=nc)
     return load_pretrained(m, META['efficientnet_b5'], dest, pretrained)
 
 
-def efficientnet_b6(nc=1000, pretrained=False, dest=None):
+def efficientnet_b6(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=1.8, depth_c=2.6, ps_head=0.5, nc=nc)
     return load_pretrained(m, META['efficientnet_b6'], dest, pretrained)
 
 
-def efficientnet_b7(nc=1000, pretrained=False, dest=None):
+def efficientnet_b7(pretrained=False, nc=1000, dest=None):
     m = EfficientNet(width_c=2., depth_c=3.1, ps_head=0.5, nc=nc)
     return load_pretrained(m, META['efficientnet_b7'], dest, pretrained)

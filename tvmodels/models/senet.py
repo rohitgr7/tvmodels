@@ -14,34 +14,34 @@ META = {
 }
 
 
-def se_resnet50(nc=1000, pretrained=False, dest=None):
+def se_resnet50(pretrained=False, nc=1000, dest=None):
     m = ResNet(SEResNetBlock, [3, 4, 6, 3], nc=nc, se=True)
     return load_pretrained(m, META['se_resnet50'], dest, pretrained)
 
 
-def se_resnet101(nc=1000, pretrained=False, dest=None):
+def se_resnet101(pretrained=False, nc=1000, dest=None):
     m = ResNet(SEResNetBlock, [3, 4, 23, 3], nc=nc, se=True)
     return load_pretrained(m, META['se_resnet101'], dest, pretrained)
 
 
-def se_resnet152(nc=1000, pretrained=False, dest=None):
+def se_resnet152(pretrained=False, nc=1000, dest=None):
     m = ResNet(SEResNetBlock, [3, 8, 36, 3], nc=nc, se=True)
     return load_pretrained(m, META['se_resnet152'], dest, pretrained)
 
 
-def se_resnext50_32x4(nc=1000, pretrained=False, dest=None):
+def se_resnext50_32x4(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 6, 3], nc=nc,
                se=True, groups=32, base_width=4)
     return load_pretrained(m, META['se_resnext50_32x4'], dest, pretrained)
 
 
-def se_resnext101_32x4(nc=1000, pretrained=False, dest=None):
+def se_resnext101_32x4(pretrained=False, nc=1000, dest=None):
     m = ResNet(ResNetBlock, [3, 4, 23, 3], nc=nc,
                se=True, groups=32, base_width=4)
     return load_pretrained(m, META['se_resnext101_32x4'], dest, pretrained)
 
 
-def senet154(nc=1000, pretrained=False, dest=None):
+def senet154(pretrained=False, nc=1000, dest=None):
     m = ResNet(SENetBlock, [3, 8, 36, 3], ni=128, ps=0.2,
                init_ksz3=True, down_ksz=3, down_pad=1, nc=nc, se=True)
     return load_pretrained(m, META['senet154'], dest, pretrained)
