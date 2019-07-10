@@ -1,15 +1,16 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md') as f:
     readme = f.read()
 
+exec(open('tvmodels/version.py').read())
 
 setup(
     name='tvmodels',
-    version='0.0.6',
+    version=__version__,
     description='Implementation of vision models with their pretrained weights',
-    py_modules=['tvmodels'],
-    package_dir={'': 'tvmodels'},
+    packages = find_packages(),
+    include_package_data=True,
 
     url='https://github.com/rohitgr7/tvmodels',
     author='Rohit Gupta',

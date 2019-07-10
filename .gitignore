@@ -9,6 +9,7 @@ env/
 **.pth
 todo.md
 tests/
+**/tags
 
 # Distribution / packaging
 .Python
