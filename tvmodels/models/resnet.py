@@ -1,5 +1,5 @@
-from .blocks import ResNetBasicBlock, ResNetBlock, ResNet
 from ..utils import load_pretrained
+from .blocks import ResNet, ResNetBasicBlock, ResNetBlock
 
 __all__ = ['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152']
 

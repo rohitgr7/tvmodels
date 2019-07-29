@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from ..layers import relu, conv_bn
+from ..layers import conv_bn, relu
 
 __all__ = ['SEBlock']
 
@@ -16,5 +16,4 @@ class SEBlock(nn.Module):
             nn.Sigmoid()
         )
 
-    def forward(self, x):
-        return x * self.net(x)
+    def forward(self, x): return x * self.net(x)

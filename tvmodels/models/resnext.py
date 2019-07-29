@@ -1,5 +1,5 @@
-from .blocks import ResNetBlock, ResNet
 from ..utils import load_pretrained
+from .blocks import ResNet, ResNetBlock
 
 __all__ = ['resnext50_32x4', 'resnext101_32x4', 'resnext101_32x8', 'resnext101_32x16',
            'resnext101_32x32', 'resnext101_32x48', 'resnext101_64x4', 'resnext152']

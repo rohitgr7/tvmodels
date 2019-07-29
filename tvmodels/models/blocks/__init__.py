@@ -1,2 +1,3 @@
-from .res_blocks import ResNetBasicBlock, ResNetBlock, ResNet, SEResNetBlock, SENetBlock
 from .effnet_blocks import EfficientNet
+from .res_blocks import (ResNet, ResNetBasicBlock, ResNetBlock, SENetBlock,
+                         SEResNetBlock)

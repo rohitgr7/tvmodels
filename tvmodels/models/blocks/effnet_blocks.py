@@ -1,8 +1,8 @@
 import math
 import torch.nn as nn
 
+from ..layers import DropConnect, Flatten, Swish, convsame_bn_swish
 from .se_blocks import SEBlock
-from ..layers import convsame_bn_swish, Flatten, DropConnect, Swish
 
 __all__ = ['EfficientNet', 'MBConvBlock']
 
@@ -19,20 +19,13 @@ class EfficientNet(nn.Module):
             *convsame_bn_swish(3, self._round_ch(32), 3, 2),
 
             # MBConvBlocks
-            self._mb_layers(self._round_ch(32), self._round_ch(
-                16), 1, 3, 1, self._round_rep(1), ps_connect),
-            self._mb_layers(self._round_ch(16), self._round_ch(
-                24), 6, 3, 2, self._round_rep(2), ps_connect),
-            self._mb_layers(self._round_ch(24), self._round_ch(
-                40), 6, 5, 2, self._round_rep(2), ps_connect),
-            self._mb_layers(self._round_ch(40), self._round_ch(
-                80), 6, 3, 2, self._round_rep(3), ps_connect),
-            self._mb_layers(self._round_ch(80), self._round_ch(
-                112), 6, 5, 1, self._round_rep(3), ps_connect),
-            self._mb_layers(self._round_ch(112), self._round_ch(
-                192), 6, 5, 2, self._round_rep(4), ps_connect),
-            self._mb_layers(self._round_ch(192), self._round_ch(
-                320), 6, 3, 1, self._round_rep(1), ps_connect),
+            self._mb_layers(self._round_ch(32), self._round_ch(16), 1, 3, 1, self._round_rep(1), ps_connect),
+            self._mb_layers(self._round_ch(16), self._round_ch(24), 6, 3, 2, self._round_rep(2), ps_connect),
+            self._mb_layers(self._round_ch(24), self._round_ch(40), 6, 5, 2, self._round_rep(2), ps_connect),
+            self._mb_layers(self._round_ch(40), self._round_ch(80), 6, 3, 2, self._round_rep(3), ps_connect),
+            self._mb_layers(self._round_ch(80), self._round_ch(112), 6, 5, 1, self._round_rep(3), ps_connect),
+            self._mb_layers(self._round_ch(112), self._round_ch(192), 6, 5, 2, self._round_rep(4), ps_connect),
+            self._mb_layers(self._round_ch(192), self._round_ch(320), 6, 3, 1, self._round_rep(1), ps_connect),
 
             # Head
             *convsame_bn_swish(self._round_ch(320), self._round_ch(1280), ksz=1),
@@ -43,28 +36,22 @@ class EfficientNet(nn.Module):
         )
 
     def _round_ch(self, ch):
-        if not self.width_c:
-            return ch
+        if not self.width_c: return ch
         ch *= self.width_c
-        new_ch = max(self.min_depth, int(ch + self.divisor / 2) //
-                     self.divisor * self.divisor)
-        if new_ch < 0.9 * ch:
-            new_ch += self.divisor
+        new_ch = max(self.min_depth, int(ch + self.divisor / 2) // self.divisor * self.divisor)
+        if new_ch < 0.9 * ch: new_ch += self.divisor
         return int(new_ch)
 
     def _round_rep(self, repeats):
-        if not self.depth_c:
-            return repeats
+        if not self.depth_c: return repeats
         return int(math.ceil(self.depth_c * repeats))
 
     def _mb_layers(self, ni, nf, expand, ksz, stride, nblocks, ps):
         layers = [MBConvBlock(ni, nf, expand, ksz, stride, ps)]
-        layers += [MBConvBlock(nf, nf, expand, ksz, 1, ps)
-                   for _ in range(1, nblocks)]
+        layers += [MBConvBlock(nf, nf, expand, ksz, 1, ps) for _ in range(1, nblocks)]
         return nn.Sequential(*layers)
 
-    def forward(self, x):
-        return self.net(x)
+    def forward(self, x): return self.net(x)
 
 
 class MBConvBlock(nn.Module):
@@ -74,13 +61,10 @@ class MBConvBlock(nn.Module):
         mid = ni * expand
         layers = []
 
-        if expand > 1:
-            layers.extend(convsame_bn_swish(ni, mid, 1))
-
+        if expand > 1: layers.extend(convsame_bn_swish(ni, mid, 1))
         layers.extend(convsame_bn_swish(mid, mid, ksz, stride, groups=mid))
 
-        if se_ratio > 0:
-            layers.append(SEBlock(mid, int(ni * se_ratio), act=Swish))
+        if se_ratio > 0: layers += [SEBlock(mid, int(ni * se_ratio), act=Swish)]
         layers.extend(convsame_bn_swish(mid, nf, 1, 1, swish=False))
         self.net = nn.Sequential(*layers)
 
@@ -90,7 +74,6 @@ class MBConvBlock(nn.Module):
     def forward(self, x):
         out = self.net(x)
         if self.skip:
-            if self.dropconnect is not None:
-                out = self.dropconnect(out)
+            if self.dropconnect is not None: out = self.dropconnect(out)
             out += x
         return out

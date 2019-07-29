@@ -1,6 +1,6 @@
 import os
-import requests
 import urllib.parse as urlparse
+import requests
 import torch
 
 __all__ = ['load_pretrained']
@@ -9,16 +9,14 @@ __all__ = ['load_pretrained']
 def _download_file_from_google_drive(fid, dest):
     def _get_confirm_token(res):
         for k, v in res.cookies.items():
-            if k.startswith('download_warning'):
-                return v
+            if k.startswith('download_warning'): return v
         return None
 
     def _save_response_content(res, dest):
         CHUNK_SIZE = 32768
         with open(dest, "wb") as f:
             for chunk in res.iter_content(CHUNK_SIZE):
-                if chunk:
-                    f.write(chunk)
+                if chunk: f.write(chunk)
 
     URL = "https://docs.google.com/uc?export=download"
     sess = requests.Session()
@@ -32,8 +30,7 @@ def _download_file_from_google_drive(fid, dest):
 
 
 def _load_url(url, dest):
-    if os.path.isfile(dest) and os.path.exists(dest):
-        return dest
+    if os.path.isfile(dest) and os.path.exists(dest): return dest
     print('[INFO]: Downloading weights...')
     fid = urlparse.parse_qs(urlparse.urlparse(url).query)['id'][0]
     _download_file_from_google_drive(fid, dest)
@@ -45,7 +42,6 @@ def load_pretrained(m, meta, dest, pretrained=False):
         if len(meta) == 0:
             print('[INFO]: Pretrained model not available')
             return m
-        if dest is None:
-            dest = meta[0]
+        if dest is None: dest = meta[0]
         m.load_state_dict(torch.load(_load_url(meta[1], dest)))
     return m

@@ -21,8 +21,7 @@ class Conv2dSamePad(nn.Conv2d):
         pad_h, pad_w = self._get_pad(x.shape[2]), self._get_pad(x.shape[3])
 
         if pad_h > 0 or pad_w > 0:
-            x = F.pad(x, [pad_w // 2, pad_w - pad_w //
-                          2, pad_h // 2, pad_h - pad_h // 2])
+            x = F.pad(x, [pad_w // 2, pad_w - pad_w // 2, pad_h // 2, pad_h - pad_h // 2])
         return F.conv2d(x, self.weight, self.bias, self.stride, self.padding, self.dilation, self.groups)
 
 
@@ -33,23 +32,17 @@ class DropConnect(nn.Module):
         self.ps = 1 - ps
 
     def forward(self, x):
-        if not self.training:
-            return x
-        rand_tensor = self.ps + \
-            torch.rand([x.size(0), 1, 1, 1], dtype=x.dtype, device=x.device)
+        if not self.training: return x
+        rand_tensor = self.ps + torch.rand([x.size(0), 1, 1, 1], dtype=x.dtype, device=x.device)
         return x.div(self.ps) * rand_tensor.floor()
 
 
 class Flatten(nn.Module):
-
-    def forward(self, x):
-        return x.view(x.size(0), -1)
+    def forward(self, x): return x.view(x.size(0), -1)
 
 
 class Swish(nn.Module):
-
-    def forward(self, x):
-        return x * x.sigmoid()
+    def forward(self, x): return x * x.sigmoid()
 
 
 def relu(leaky=0.):
@@ -57,32 +50,25 @@ def relu(leaky=0.):
 
 
 def _init_default(m, func=nn.init.kaiming_normal_):
-    if hasattr(m, 'weight'):
-        func(m.weight)
-    if hasattr(m, 'bias') and hasattr(m.bias, 'data'):
-        m.bias.data.fill_(0.)
+    if hasattr(m, 'weight'): func(m.weight)
+    if hasattr(m, 'bias') and hasattr(m.bias, 'data'): m.bias.data.fill_(0.)
     return m
 
 
 def conv2d(ni, nf, ksz, stride=1, pad=0, dilation=1, groups=1, bias=False, spectr=False):
     conv = nn.Conv2d(ni, nf, ksz, stride, pad, dilation, groups, bias)
     conv = _init_default(conv)
-    if spectr:
-        conv = spectral_norm(conv)
+    if spectr: conv = spectral_norm(conv)
     return conv
 
 
 def conv_bn(ni, nf, ksz, stride=1, pad=0, dilation=1, groups=1, bn=False, spectr=False):
-    layers = [conv2d(ni, nf, ksz, stride, pad, dilation,
-                     groups, bias=not bn, spectr=spectr)]
-    if bn:
-        layers.append(nn.BatchNorm2d(nf))
+    layers = [conv2d(ni, nf, ksz, stride, pad, dilation, groups, bias=not bn, spectr=spectr)]
+    if bn: layers += [nn.BatchNorm2d(nf)]
     return layers
 
 
 def convsame_bn_swish(ni, nf, ksz, stride=1, groups=1, swish=True):
-    layers = [Conv2dSamePad(ni, nf, ksz, stride, groups=groups, bias=False),
-              nn.BatchNorm2d(nf, 1e-3, 0.01)]
-    if swish:
-        layers.append(Swish())
+    layers = [Conv2dSamePad(ni, nf, ksz, stride, groups=groups, bias=False), nn.BatchNorm2d(nf, 1e-3, 0.01)]
+    if swish: layers += [Swish()]
     return layers
